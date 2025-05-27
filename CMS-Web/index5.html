@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor</title>
+    <link rel="icon" type="image/x-icon" href="logo.png">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a66c2;
+            --secondary: #057642;
+            --light-gray: #f3f2ef;
+            --dark-gray: #333333;
+            --border-color: #e0e0e0;
+        }
+        
+        body {
+            background-color: var(--light-gray);
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
+        }
+        
+        .navbar {
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .search-bar {
+            background-color: var(--light-gray);
+            border-radius: 4px;
+            border: none;
+            padding-left: 40px;
+            width: 280px;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 10px;
+            color: #666;
+        }
+        
+        .nav-item .nav-link {
+            color: #666;
+            text-align: center;
+            padding: 0 15px;
+        }
+        
+        .nav-item .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        .nav-item .nav-link i {
+            font-size: 1.2rem;
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        .profile-card {
+            background-color: white;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+        
+        .profile-cover {
+            height: 150px;
+            background-color: var(--primary);
+            background-image: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid white;
+            margin-top: -60px;
+            position: relative;
+            z-index: 1;
+            background-color: white;
+        }
+        
+        .post-card {
+            background-color: white;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+        
+        .post-input {
+            border-radius: 35px;
+            border: 1px solid var(--border-color);
+            padding: 12px 20px;
+            color: #666;
+            cursor: pointer;
+        }
+        
+        .post-actions {
+            display: flex;
+            padding-top: 8px;
+        }
+        
+        .post-action-btn {
+            flex: 1;
+            text-align: center;
+            padding: 8px;
+            border-radius: 4px;
+            color: #666;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .post-action-btn:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        
+        .post-action-btn i {
+            margin-right: 8px;
+        }
+        
+        .post-author {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .post-author-info {
+            margin-left: 10px;
+        }
+        
+        .post-author-info h6 {
+            margin-bottom: 0;
+            font-weight: 600;
+        }
+        
+        .post-author-info p {
+            margin-bottom: 0;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .post-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+        }
+        
+        .sidebar-card {
+            background-color: white;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+        
+        .sidebar-title {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+        }
+        
+        .connection-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .connection-item:last-child {
+            border-bottom: none;
+        }
+        
+        .connection-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .connection-name {
+            font-weight: 600;
+            margin-bottom: 0;
+            font-size: 0.9rem;
+        }
+        
+        .connection-title {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 0;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .user-type {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+        
+        .user-type.teacher {
+            background-color: #e7f3ff;
+            color: var(--primary);
+        }
+        
+        .user-type.student {
+            background-color: #e6f6eb;
+            color: var(--secondary);
+        }
+        
+        .education-item {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .education-item:last-child {
+            border-bottom: none;
+        }
+        
+        .education-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            margin-right: 15px;
+        }
+        
+        .education-school {
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+        
+        .education-degree {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+        
+        .education-date {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .skills-list {
+            list-style-type: none;
+            padding: 10px 15px;
+        }
+        
+        .skills-list li {
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .skills-list li:last-child {
+            margin-bottom: 0;
+        }
+        
+        .skills-list li span {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            margin-right: 10px;
+        }
+        
+        .endorsement-count {
+            display: inline-block;
+            padding: 2px 6px;
+            background-color: var(--light-gray);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-left: 5px;
+        }
+        
+        .featured-courses {
+            display: flex;
+            overflow-x: auto;
+            padding: 15px;
+            gap: 15px;
+        }
+        
+        .course-card {
+            min-width: 220px;
+            max-width: 220px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .course-img {
+            height: 120px;
+            object-fit: cover;
+        }
+        
+        .course-body {
+            padding: 10px;
+        }
+        
+        .course-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .course-author {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .course-rating {
+            display: flex;
+            align-items: center;
+        }
+        
+        .course-rating i {
+            color: #b4690e;
+            font-size: 0.8rem;
+        }
+        
+        .course-rating span {
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+        
+        .news-card {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .news-card:last-child {
+            border-bottom: none;
+        }
+        
+        .news-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .news-meta {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .notification-dot {
+            position: absolute;
+            top: 0;
+            right: 10px;
+            width: 8px;
+            height: 8px;
+            background-color: #e11d48;
+            border-radius: 50%;
+        }
+        
+        .notification-counter {
+            position: absolute;
+            top: -5px;
+            right: 0;
+            background-color: #e11d48;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 sticky-top">
+        <div class="container">
+            <img size="100" width="100" alt="Lahiru" src="logo.png">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="position-relative mx-auto">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="form-control search-bar" placeholder="Search for teachers, students">
+                </div>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-home"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-user-group"></i>
+                            <span>My Network</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-briefcase"></i>
+                            <span>Jobs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="#">
+                            <i class="fas fa-bell"></i>
+                            <span>Notifications</span>
+                            <span class="notification-counter">5</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-comment-dots"></i>
+                            <span>Messages</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Courses</span>
+                        </a>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <a class="btn btn-primary" href="#">
+                            <i class="fas fa-plus me-1"></i> Post
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container py-4">
+        <div class="row">
+            <!-- Left Sidebar -->
+            <div class="col-lg-3">
+                <!-- Profile Card -->
+                <div class="profile-card mb-4">
+                    <div class="profile-cover"></div>
+                    <div class="text-center">
+                        <img src="T4.jpg" width="120" height="120" alt="Profile" class="profile-avatar">
+                    </div>
+                    <div class="text-center p-3">
+                        <h5 class="mb-1">Dr. Sarah Johnson</h5>
+                        <div class="user-type teacher">Teacher</div>
+                        <p class="text-muted mb-2">Computer Science Professor at Stanford University</p>
+                        <p class="text-muted small mb-3">Palo Alto, California</p>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary btn-sm">View Profile</button>
+                            <button class="btn btn-outline-primary btn-sm">Edit Profile</button>
+                        </div>
+                    </div>
+                    <div class="border-top p-3">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Profile
